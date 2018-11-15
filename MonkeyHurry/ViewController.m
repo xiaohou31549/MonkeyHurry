@@ -8,11 +8,14 @@
 
 #import "ViewController.h"
 #import "MHVideoDownload.h"
+#import <WebKit/WebKit.h>
+#import <TFHpple/TFHpple.h>
 
-@interface ViewController () <MHVideoDownloadDelegate>
+@interface ViewController () <MHVideoDownloadDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong) MHVideoDownload *videoDownload;
 @property (nonatomic, strong) UILabel *progressLabel;
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
@@ -31,6 +34,23 @@
     _progressLabel = [UILabel new];
     _progressLabel.frame = CGRectMake(100, 300, 100, 60);
     [self.view addSubview:_progressLabel];
+    
+    [self testGetVideoUrl];
+}
+
+- (WKWebView *)webView {
+    if (!_webView) {
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView.navigationDelegate = self;
+    }
+    return _webView;
+}
+
+- (void)testGetVideoUrl {
+    NSString *testUrl = @"https://youtu.be/NSEWCNW9wPU";
+    NSURL *url = [NSURL URLWithString:testUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
 }
 
 - (void)startDownload {
@@ -56,6 +76,29 @@
 
 - (BOOL)videoDownloadSaveToPhotoAssets {
     return YES;
+}
+
+#pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self.webView evaluateJavaScript:@"document.documentElement.outerHTML.toString()" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"解析html出错：%@", error);
+        } else {
+            if (html) {
+                NSString *htmlString = (NSString *)html;
+                TFHpple *parser = [TFHpple hppleWithHTMLData:[htmlString dataUsingEncoding:NSUTF8StringEncoding]];
+                NSArray <TFHppleElement *> *videos = [parser searchWithXPathQuery:@"//video"];
+                TFHppleElement *firstElement = videos.firstObject;
+                if (firstElement) {
+                    NSString *title = firstElement.attributes[@"title"];
+                    NSString *videoUrl = firstElement.attributes[@"src"];
+                    NSLog(@"title:%@---url:%@", title, videoUrl);
+                }
+            } else {
+                NSLog(@"html结果为空");
+            }
+        }
+    }];
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2C20EDD9546A66E45F1B75C /* libPods-MonkeyHurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A25604F5EFE1088ED0C67266 /* libPods-MonkeyHurry.a */; };
 		F14BE663219B031200768F7F /* MHVideoDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = F14BE662219B031200768F7F /* MHVideoDownload.m */; };
 		F184C9DE2199D7E4000F7CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9DD2199D7E4000F7CF9 /* main.m */; };
 		F184C9E12199D7E4000F7CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9E02199D7E4000F7CF9 /* AppDelegate.m */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0783A9F0998062177DBE295F /* Pods-MonkeyHurry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyHurry.release.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry.release.xcconfig"; sourceTree = "<group>"; };
+		A25604F5EFE1088ED0C67266 /* libPods-MonkeyHurry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MonkeyHurry.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2E0C85D88AD3A8C49F62465 /* Pods-MonkeyHurry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyHurry.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry.debug.xcconfig"; sourceTree = "<group>"; };
 		F14BE661219B031200768F7F /* MHVideoDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoDownload.h; sourceTree = "<group>"; };
 		F14BE662219B031200768F7F /* MHVideoDownload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHVideoDownload.m; sourceTree = "<group>"; };
 		F184C9D92199D7E4000F7CF9 /* MonkeyHurry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkeyHurry.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,12 +40,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2C20EDD9546A66E45F1B75C /* libPods-MonkeyHurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F8D7A38AF5DCA6EFF2BFFD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A25604F5EFE1088ED0C67266 /* libPods-MonkeyHurry.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDEE747197BF8F657CB95AAD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D2E0C85D88AD3A8C49F62465 /* Pods-MonkeyHurry.debug.xcconfig */,
+				0783A9F0998062177DBE295F /* Pods-MonkeyHurry.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F14BE660219AFF2200768F7F /* DownloadUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +78,8 @@
 			children = (
 				F184C9DB2199D7E4000F7CF9 /* MonkeyHurry */,
 				F184C9DA2199D7E4000F7CF9 /* Products */,
+				DDEE747197BF8F657CB95AAD /* Pods */,
+				2F8D7A38AF5DCA6EFF2BFFD4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,9 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F184C9F02199D7E4000F7CF9 /* Build configuration list for PBXNativeTarget "MonkeyHurry" */;
 			buildPhases = (
+				FAC0C7B7C3607C26CA0D11D7 /* [CP] Check Pods Manifest.lock */,
 				F184C9D52199D7E4000F7CF9 /* Sources */,
 				F184C9D62199D7E4000F7CF9 /* Frameworks */,
 				F184C9D72199D7E4000F7CF9 /* Resources */,
+				5E62BF73B44916932D285617 /* [CP] Embed Pods Frameworks */,
+				0DA0C1848FEE713DF7C405A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -158,6 +185,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0DA0C1848FEE713DF7C405A0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E62BF73B44916932D285617 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAC0C7B7C3607C26CA0D11D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MonkeyHurry-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F184C9D52199D7E4000F7CF9 /* Sources */ = {
@@ -285,6 +363,7 @@
 		};
 		F184C9F12199D7E4000F7CF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2E0C85D88AD3A8C49F62465 /* Pods-MonkeyHurry.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97BKJHB67M;
@@ -297,6 +376,7 @@
 		};
 		F184C9F22199D7E4000F7CF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0783A9F0998062177DBE295F /* Pods-MonkeyHurry.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97BKJHB67M;
