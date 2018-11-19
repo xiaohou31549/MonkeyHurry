@@ -10,12 +10,17 @@
 #import "MHVideoDownload.h"
 #import <WebKit/WebKit.h>
 #import <TFHpple/TFHpple.h>
+#import "MHVideoUrlParse.h"
 
 @interface ViewController () <MHVideoDownloadDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong) MHVideoDownload *videoDownload;
 @property (nonatomic, strong) UILabel *progressLabel;
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) MHVideoUrlParse *videoUrlParse;
+@property (nonatomic, strong) MHVideoParseModel *parseModel;
+@property (nonatomic, strong) UITextField *inputTextField;
+@property (nonatomic, strong) UIButton *parseButton;
 
 @end
 
@@ -24,45 +29,61 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    _inputTextField = [UITextField new];
+    _inputTextField.frame = CGRectMake(30, 100, 250, 50);
+    _inputTextField.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:_inputTextField];
+    
+    _parseButton = [UIButton new];
+    [_parseButton setTitle:@"解析" forState:UIControlStateNormal];
+    _parseButton.backgroundColor = [UIColor redColor];
+    _parseButton.frame = CGRectMake(300, 100, 50, 30);
+    [self.view addSubview:_parseButton];
+    [_parseButton addTarget:self action:@selector(parseVideoUrl) forControlEvents:UIControlEventTouchUpInside];
+    
+    _progressLabel = [UILabel new];
+    _progressLabel.frame = CGRectMake(30, 200, 240, 250);
+    _progressLabel.numberOfLines = 0;
+    [self.view addSubview:_progressLabel];
+    
     UIButton *downloadButton = [UIButton new];
     downloadButton.backgroundColor = [UIColor grayColor];
-    downloadButton.frame = CGRectMake(100, 200, 100, 60);
+    downloadButton.frame = CGRectMake(280, 200, 80, 50);
     [downloadButton setTitle:@"开始下载" forState:UIControlStateNormal];
     [self.view addSubview:downloadButton];
     [downloadButton addTarget:self action:@selector(startDownload) forControlEvents:UIControlEventTouchUpInside];
-    
-    _progressLabel = [UILabel new];
-    _progressLabel.frame = CGRectMake(100, 300, 100, 60);
-    [self.view addSubview:_progressLabel];
-    
-    [self testGetVideoUrl];
-}
-
-- (WKWebView *)webView {
-    if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
-        _webView.navigationDelegate = self;
-    }
-    return _webView;
-}
-
-- (void)testGetVideoUrl {
-    NSString *testUrl = @"https://youtu.be/NSEWCNW9wPU";
-    NSURL *url = [NSURL URLWithString:testUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
 }
 
 - (void)startDownload {
-    NSString *videoUrl = @"http://vt1.doubanio.com/201811031829/f17568f72321309cbdf275b0b0922a4a/view/movie/M/302350940.mp4";
-    _videoDownload = [[MHVideoDownload alloc] initWithVideoUrl:videoUrl];
-    _videoDownload.delegate = self;
-    [_videoDownload startDownload];
+    self.videoDownload = [[MHVideoDownload alloc] initWithVideoUrl:self.parseModel.url];
+    self.videoDownload.delegate = self;
+    [self.videoDownload startDownload];
+}
+
+- (void)parseVideoUrl {
+    NSString *videoUrl = _inputTextField.text;
+    if (videoUrl && videoUrl.length > 0) {
+        self.videoUrlParse = [[MHVideoUrlParse alloc] init];
+        __weak typeof(self) weakSelf = self;
+        [self.videoUrlParse parseWithUrl:videoUrl completion:^(MHVideoParseModel *result, NSError *error) {
+            if (error) {
+                NSLog(@"解析视频url错误");
+            } else {
+                if (result) {
+                    NSLog(@"video标题:%@--video下载地址:%@", result.title, result.url);
+                    weakSelf.parseModel = result;
+                    weakSelf.progressLabel.text = [NSString stringWithFormat:@"%@", result.title];
+                }
+            }
+        }];
+    }
 }
 
 #pragma mark - MHVideoDownloadDelegate;
 - (void)videoDownloadProgress:(float)progress {
-    NSString *value = [NSString stringWithFormat:@"%.2f%%",progress];
+    NSString *videoTitle = self.parseModel.title ? : @"";
+    NSString *value = [NSString stringWithFormat:@"%@:%.2f%%", videoTitle, progress];
     self.progressLabel.text = value;
 }
 
@@ -76,29 +97,6 @@
 
 - (BOOL)videoDownloadSaveToPhotoAssets {
     return YES;
-}
-
-#pragma mark - WKNavigationDelegate
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [self.webView evaluateJavaScript:@"document.documentElement.outerHTML.toString()" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"解析html出错：%@", error);
-        } else {
-            if (html) {
-                NSString *htmlString = (NSString *)html;
-                TFHpple *parser = [TFHpple hppleWithHTMLData:[htmlString dataUsingEncoding:NSUTF8StringEncoding]];
-                NSArray <TFHppleElement *> *videos = [parser searchWithXPathQuery:@"//video"];
-                TFHppleElement *firstElement = videos.firstObject;
-                if (firstElement) {
-                    NSString *title = firstElement.attributes[@"title"];
-                    NSString *videoUrl = firstElement.attributes[@"src"];
-                    NSLog(@"title:%@---url:%@", title, videoUrl);
-                }
-            } else {
-                NSLog(@"html结果为空");
-            }
-        }
-    }];
 }
 
 @end
