@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *Thumbnail;
 
 @end
 

@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MHTabBarController.h"
+#import "MHHomeViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]init];
+    self.window.frame = [UIScreen mainScreen].bounds;
+    
+    UITabBarController * tabbarVC = [[MHTabBarController alloc]init];
+    
+    MHHomeViewController * homeVC = [[MHHomeViewController alloc]init];
+    homeVC.view.backgroundColor = [UIColor whiteColor];
+    homeVC.tabBarItem.title = @"首页";
+    
+    UIViewController *placeholderVC = [[UIViewController alloc]init];
+    placeholderVC.tabBarItem.title = @"下载";
+    placeholderVC.view.backgroundColor = [UIColor yellowColor];
+    
+    tabbarVC.viewControllers = @[homeVC, placeholderVC];
+    
+    self.window.rootViewController = tabbarVC;
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

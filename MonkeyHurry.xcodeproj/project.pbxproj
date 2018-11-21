@@ -12,10 +12,10 @@
 		F14BE663219B031200768F7F /* MHVideoDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = F14BE662219B031200768F7F /* MHVideoDownload.m */; };
 		F184C9DE2199D7E4000F7CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9DD2199D7E4000F7CF9 /* main.m */; };
 		F184C9E12199D7E4000F7CF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9E02199D7E4000F7CF9 /* AppDelegate.m */; };
-		F184C9E42199D7E4000F7CF9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9E32199D7E4000F7CF9 /* ViewController.m */; };
-		F184C9E72199D7E4000F7CF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F184C9E52199D7E4000F7CF9 /* Main.storyboard */; };
+		F184C9E42199D7E4000F7CF9 /* MHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9E32199D7E4000F7CF9 /* MHomeViewController.m */; };
 		F184C9E92199D7E4000F7CF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F184C9E82199D7E4000F7CF9 /* Assets.xcassets */; };
 		F184C9EC2199D7E4000F7CF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F184C9EA2199D7E4000F7CF9 /* LaunchScreen.storyboard */; };
+		F1B9B42921A5AA9C00DCF065 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B9B42821A5AA9C00DCF065 /* MHTabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,12 +30,14 @@
 		F184C9DD2199D7E4000F7CF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F184C9DF2199D7E4000F7CF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F184C9E02199D7E4000F7CF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F184C9E22199D7E4000F7CF9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F184C9E32199D7E4000F7CF9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F184C9E62199D7E4000F7CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F184C9E22199D7E4000F7CF9 /* MHHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHHomeViewController.h; sourceTree = "<group>"; };
+		F184C9E32199D7E4000F7CF9 /* MHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHomeViewController.m; sourceTree = "<group>"; };
 		F184C9E82199D7E4000F7CF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F184C9EB2199D7E4000F7CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F184C9ED2199D7E4000F7CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1B9B42721A5AA9C00DCF065 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
+		F1B9B42821A5AA9C00DCF065 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
+		F1B9B42B21A5ADFD00DCF065 /* MHPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHPrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,15 +101,14 @@
 		F184C9DB2199D7E4000F7CF9 /* MonkeyHurry */ = {
 			isa = PBXGroup;
 			children = (
+				F1B9B42421A5AA3100DCF065 /* App */,
 				F14BE660219AFF2200768F7F /* DownloadUtils */,
 				F184C9DF2199D7E4000F7CF9 /* AppDelegate.h */,
 				F184C9E02199D7E4000F7CF9 /* AppDelegate.m */,
-				F184C9E22199D7E4000F7CF9 /* ViewController.h */,
-				F184C9E32199D7E4000F7CF9 /* ViewController.m */,
-				F184C9E52199D7E4000F7CF9 /* Main.storyboard */,
 				F184C9E82199D7E4000F7CF9 /* Assets.xcassets */,
 				F184C9EA2199D7E4000F7CF9 /* LaunchScreen.storyboard */,
 				F184C9ED2199D7E4000F7CF9 /* Info.plist */,
+				F1B9B42B21A5ADFD00DCF065 /* MHPrefixHeader.pch */,
 				F184C9DC2199D7E4000F7CF9 /* Supporting Files */,
 			);
 			path = MonkeyHurry;
@@ -119,6 +120,41 @@
 				F184C9DD2199D7E4000F7CF9 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1B9B42421A5AA3100DCF065 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F1B9B42621A5AA5600DCF065 /* Base */,
+				F1B9B42521A5AA4700DCF065 /* Home */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		F1B9B42521A5AA4700DCF065 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F1B9B42A21A5AACA00DCF065 /* ViewController */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		F1B9B42621A5AA5600DCF065 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F1B9B42721A5AA9C00DCF065 /* MHTabBarController.h */,
+				F1B9B42821A5AA9C00DCF065 /* MHTabBarController.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		F1B9B42A21A5AACA00DCF065 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F184C9E22199D7E4000F7CF9 /* MHHomeViewController.h */,
+				F184C9E32199D7E4000F7CF9 /* MHomeViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +221,6 @@
 			files = (
 				F184C9EC2199D7E4000F7CF9 /* LaunchScreen.storyboard in Resources */,
 				F184C9E92199D7E4000F7CF9 /* Assets.xcassets in Resources */,
-				F184C9E72199D7E4000F7CF9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +272,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -248,9 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F14BE663219B031200768F7F /* MHVideoDownload.m in Sources */,
-				F184C9E42199D7E4000F7CF9 /* ViewController.m in Sources */,
+				F184C9E42199D7E4000F7CF9 /* MHomeViewController.m in Sources */,
 				F184C9E12199D7E4000F7CF9 /* AppDelegate.m in Sources */,
 				F184C9DE2199D7E4000F7CF9 /* main.m in Sources */,
+				F1B9B42921A5AA9C00DCF065 /* MHTabBarController.m in Sources */,
 				F14A605B21A2B81D00E505A5 /* MHVideoUrlParse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,14 +294,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F184C9E52199D7E4000F7CF9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F184C9E62199D7E4000F7CF9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F184C9EA2199D7E4000F7CF9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -373,6 +401,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97BKJHB67M;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MonkeyHurry/MHPrefixHeader.pch";
 				INFOPLIST_FILE = MonkeyHurry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tough.MonkeyHurry;
@@ -386,6 +416,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 97BKJHB67M;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MonkeyHurry/MHPrefixHeader.pch";
 				INFOPLIST_FILE = MonkeyHurry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tough.MonkeyHurry;

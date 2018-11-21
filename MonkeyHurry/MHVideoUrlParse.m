@@ -59,6 +59,7 @@
                     model = [MHVideoParseModel new];
                     model.url = videoUrl;
                     model.title = title;
+                    model.Thumbnail = [self videoThumbnailUrl:webView.URL];
                 }
             } else {
                 NSLog(@"html结果为空");
@@ -68,6 +69,21 @@
             }
         }
     }];
+}
+
+- (NSString *)videoThumbnailUrl:(NSURL *)videoUrl {
+    NSString *result = nil;
+    if (videoUrl) {
+        NSURLComponents *components = [[NSURLComponents alloc] initWithString:videoUrl.absoluteString];
+        if (components.queryItems.count > 0) {
+            for (NSURLQueryItem *item in components.queryItems) {
+                if ([item.name isEqualToString:@"v"]) {
+                    result = [NSString stringWithFormat:@"https://img.youtube.com/vi/%@/0.jpg", item.value];
+                }
+            }
+        }
+    }
+    return result;
 }
 
 @end
