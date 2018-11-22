@@ -21,19 +21,7 @@
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
     
-    UITabBarController * tabbarVC = [[MHTabBarController alloc]init];
-    
-    MHHomeViewController * homeVC = [[MHHomeViewController alloc]init];
-    homeVC.view.backgroundColor = [UIColor whiteColor];
-    homeVC.tabBarItem.title = @"首页";
-    
-    UIViewController *placeholderVC = [[UIViewController alloc]init];
-    placeholderVC.tabBarItem.title = @"下载";
-    placeholderVC.view.backgroundColor = [UIColor yellowColor];
-    
-    tabbarVC.viewControllers = @[homeVC, placeholderVC];
-    
-    self.window.rootViewController = tabbarVC;
+    self.window.rootViewController = [MHTabBarController sharedInstance];
     
     [self.window makeKeyAndVisible];
     

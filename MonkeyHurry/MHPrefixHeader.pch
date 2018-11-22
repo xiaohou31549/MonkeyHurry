@@ -10,5 +10,7 @@
 #define MHPrefixHeader_pch
 
 #import <Masonry/Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
 
 #endif /* MHPrefixHeader_pch */

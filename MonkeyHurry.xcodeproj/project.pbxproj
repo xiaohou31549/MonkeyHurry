@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C2C20EDD9546A66E45F1B75C /* libPods-MonkeyHurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A25604F5EFE1088ED0C67266 /* libPods-MonkeyHurry.a */; };
+		F1292F2C21A6A84800E4AB82 /* MHVideoDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1292F2B21A6A84800E4AB82 /* MHVideoDetailView.m */; };
 		F14A605B21A2B81D00E505A5 /* MHVideoUrlParse.m in Sources */ = {isa = PBXBuildFile; fileRef = F14A605A21A2B81D00E505A5 /* MHVideoUrlParse.m */; };
 		F14BE663219B031200768F7F /* MHVideoDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = F14BE662219B031200768F7F /* MHVideoDownload.m */; };
 		F184C9DE2199D7E4000F7CF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F184C9DD2199D7E4000F7CF9 /* main.m */; };
@@ -22,6 +23,8 @@
 		0783A9F0998062177DBE295F /* Pods-MonkeyHurry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyHurry.release.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry.release.xcconfig"; sourceTree = "<group>"; };
 		A25604F5EFE1088ED0C67266 /* libPods-MonkeyHurry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MonkeyHurry.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E0C85D88AD3A8C49F62465 /* Pods-MonkeyHurry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyHurry.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyHurry/Pods-MonkeyHurry.debug.xcconfig"; sourceTree = "<group>"; };
+		F1292F2A21A6A84800E4AB82 /* MHVideoDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoDetailView.h; sourceTree = "<group>"; };
+		F1292F2B21A6A84800E4AB82 /* MHVideoDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHVideoDetailView.m; sourceTree = "<group>"; };
 		F14A605921A2B81D00E505A5 /* MHVideoUrlParse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoUrlParse.h; sourceTree = "<group>"; };
 		F14A605A21A2B81D00E505A5 /* MHVideoUrlParse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHVideoUrlParse.m; sourceTree = "<group>"; };
 		F14BE661219B031200768F7F /* MHVideoDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoDownload.h; sourceTree = "<group>"; };
@@ -67,6 +70,15 @@
 				0783A9F0998062177DBE295F /* Pods-MonkeyHurry.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F1292F2921A6A7C700E4AB82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F1292F2A21A6A84800E4AB82 /* MHVideoDetailView.h */,
+				F1292F2B21A6A84800E4AB82 /* MHVideoDetailView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		F14BE660219AFF2200768F7F /* DownloadUtils */ = {
@@ -134,6 +146,7 @@
 		F1B9B42521A5AA4700DCF065 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F1292F2921A6A7C700E4AB82 /* View */,
 				F1B9B42A21A5AACA00DCF065 /* ViewController */,
 			);
 			name = Home;
@@ -286,6 +299,7 @@
 				F184C9E42199D7E4000F7CF9 /* MHomeViewController.m in Sources */,
 				F184C9E12199D7E4000F7CF9 /* AppDelegate.m in Sources */,
 				F184C9DE2199D7E4000F7CF9 /* main.m in Sources */,
+				F1292F2C21A6A84800E4AB82 /* MHVideoDetailView.m in Sources */,
 				F1B9B42921A5AA9C00DCF065 /* MHTabBarController.m in Sources */,
 				F14A605B21A2B81D00E505A5 /* MHVideoUrlParse.m in Sources */,
 			);

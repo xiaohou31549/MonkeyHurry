@@ -10,4 +10,6 @@
 
 @interface MHTabBarController : UITabBarController
 
++ (instancetype)sharedInstance;
+
 @end

@@ -11,6 +11,7 @@
 #import <WebKit/WebKit.h>
 #import <TFHpple/TFHpple.h>
 #import "MHVideoUrlParse.h"
+#import "MHVideoDetailView.h"
 
 @interface MHHomeViewController () <MHVideoDownloadDelegate, WKNavigationDelegate>
 
@@ -21,7 +22,7 @@
 @property (nonatomic, strong) UITextField *inputTextField;
 @property (nonatomic, strong) UIButton *parseButton;
 @property (nonatomic, strong) MHVideoParseModel *videoDetail;
-@property (nonatomic, strong) UIView *viedoParseView;
+@property (nonatomic, strong) MHVideoDetailView *videoParseView;
 
 @end
 
@@ -64,6 +65,13 @@
         make.right.mas_equalTo(self.parseButton.mas_left).mas_offset(-10);
     }];
     
+    _videoParseView = [MHVideoDetailView new];
+    [self.view addSubview:_videoParseView];
+    [_videoParseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(15);
+        make.right.mas_offset(-15);
+        make.top.mas_equalTo(inputView.mas_bottom).mas_offset(15);
+    }];
 }
 
 - (void)startDownload {
@@ -89,7 +97,8 @@
                 if (result) {
                     NSLog(@"video标题:%@--video下载地址:%@", result.title, result.url);
                     weakSelf.videoDetail = result;
-                    weakSelf.progressLabel.text = [NSString stringWithFormat:@"%@", result.title];
+                    [weakSelf.videoParseView showWithVideoModel:result];
+//                    weakSelf.progressLabel.text = [NSString stringWithFormat:@"%@", result.title];
                 }
             }
         }];
