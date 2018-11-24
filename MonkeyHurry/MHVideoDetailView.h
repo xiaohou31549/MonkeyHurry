@@ -11,6 +11,8 @@
 
 @interface MHVideoDetailView : UIView
 
+@property (nonatomic, strong) UIButton *downloadButton;
+
 - (void)showWithVideoModel:(MHVideoParseModel *)model;
 
 @end

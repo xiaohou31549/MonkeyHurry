@@ -12,12 +12,13 @@
 #import <TFHpple/TFHpple.h>
 #import "MHVideoUrlParse.h"
 #import "MHVideoDetailView.h"
+#import "MHConstants.h"
 
 @interface MHHomeViewController () <MHVideoDownloadDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong) MHVideoDownload *videoDownload;
-@property (nonatomic, strong) UILabel *progressLabel;
-@property (nonatomic, strong) WKWebView *webView;
+//@property (nonatomic, strong) UILabel *progressLabel;
+//@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) MHVideoUrlParse *videoUrlParse;
 @property (nonatomic, strong) UITextField *inputTextField;
 @property (nonatomic, strong) UIButton *parseButton;
@@ -59,6 +60,7 @@
     
     _inputTextField = [UITextField new];
     _inputTextField.backgroundColor = [UIColor grayColor];
+    _inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [inputView addSubview:_inputTextField];
     [_inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.mas_offset(0);
@@ -72,17 +74,12 @@
         make.right.mas_offset(-15);
         make.top.mas_equalTo(inputView.mas_bottom).mas_offset(15);
     }];
+    [_videoParseView.downloadButton addTarget:self action:@selector(startDownload) forControlEvents:UIControlEventTouchUpInside];
+    _videoParseView.hidden = YES;
 }
 
 - (void)startDownload {
-    NSString *videoUrl = self.videoDetail.url;
-    if (videoUrl) {
-        self.videoDownload = [[MHVideoDownload alloc] initWithVideoUrl:videoUrl];
-        self.videoDownload.delegate = self;
-        [self.videoDownload startDownload];
-    } else {
-        NSLog(@"video url 为空");
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MHStartDownloadVideoNoti object:self.videoDetail];
 }
 
 - (void)parseVideoUrl {
@@ -98,7 +95,7 @@
                     NSLog(@"video标题:%@--video下载地址:%@", result.title, result.url);
                     weakSelf.videoDetail = result;
                     [weakSelf.videoParseView showWithVideoModel:result];
-//                    weakSelf.progressLabel.text = [NSString stringWithFormat:@"%@", result.title];
+                    weakSelf.videoParseView.hidden = NO;
                 }
             }
         }];
@@ -109,7 +106,7 @@
 - (void)videoDownloadProgress:(float)progress {
     NSString *videoTitle = self.videoDetail.title ? : @"";
     NSString *value = [NSString stringWithFormat:@"%@:%.2f%%", videoTitle, progress];
-    self.progressLabel.text = value;
+//    self.progressLabel.text = value;
 }
 
 - (void)videoDownloadCompleteWithError:(NSError *)error {

@@ -17,6 +17,10 @@
 		F184C9E92199D7E4000F7CF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F184C9E82199D7E4000F7CF9 /* Assets.xcassets */; };
 		F184C9EC2199D7E4000F7CF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F184C9EA2199D7E4000F7CF9 /* LaunchScreen.storyboard */; };
 		F1B9B42921A5AA9C00DCF065 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B9B42821A5AA9C00DCF065 /* MHTabBarController.m */; };
+		F1BB010A21A93A68000A3C46 /* MHVideoDownloadService.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BB010921A93A68000A3C46 /* MHVideoDownloadService.m */; };
+		F1BB010F21A94151000A3C46 /* MHVideoDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BB010E21A94151000A3C46 /* MHVideoDownloadCell.m */; };
+		F1BB011221A94513000A3C46 /* MHDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BB011121A94513000A3C46 /* MHDownloadViewController.m */; };
+		F1BB011621A9486F000A3C46 /* MHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BB011521A9486F000A3C46 /* MHConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +45,14 @@
 		F1B9B42721A5AA9C00DCF065 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
 		F1B9B42821A5AA9C00DCF065 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
 		F1B9B42B21A5ADFD00DCF065 /* MHPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHPrefixHeader.pch; sourceTree = "<group>"; };
+		F1BB010821A93A68000A3C46 /* MHVideoDownloadService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoDownloadService.h; sourceTree = "<group>"; };
+		F1BB010921A93A68000A3C46 /* MHVideoDownloadService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHVideoDownloadService.m; sourceTree = "<group>"; };
+		F1BB010D21A94151000A3C46 /* MHVideoDownloadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHVideoDownloadCell.h; sourceTree = "<group>"; };
+		F1BB010E21A94151000A3C46 /* MHVideoDownloadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHVideoDownloadCell.m; sourceTree = "<group>"; };
+		F1BB011021A94513000A3C46 /* MHDownloadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHDownloadViewController.h; sourceTree = "<group>"; };
+		F1BB011121A94513000A3C46 /* MHDownloadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHDownloadViewController.m; sourceTree = "<group>"; };
+		F1BB011421A9486F000A3C46 /* MHConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHConstants.h; sourceTree = "<group>"; };
+		F1BB011521A9486F000A3C46 /* MHConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +125,7 @@
 		F184C9DB2199D7E4000F7CF9 /* MonkeyHurry */ = {
 			isa = PBXGroup;
 			children = (
+				F1BB011321A9483C000A3C46 /* Common */,
 				F1B9B42421A5AA3100DCF065 /* App */,
 				F14BE660219AFF2200768F7F /* DownloadUtils */,
 				F184C9DF2199D7E4000F7CF9 /* AppDelegate.h */,
@@ -137,6 +150,8 @@
 		F1B9B42421A5AA3100DCF065 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				F1BB010721A93A34000A3C46 /* Service */,
+				F1BB010321A939E6000A3C46 /* Download */,
 				F1B9B42621A5AA5600DCF065 /* Base */,
 				F1B9B42521A5AA4700DCF065 /* Home */,
 			);
@@ -168,6 +183,51 @@
 				F184C9E32199D7E4000F7CF9 /* MHomeViewController.m */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		F1BB010321A939E6000A3C46 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				F1BB010C21A94129000A3C46 /* View */,
+				F1BB010B21A940F9000A3C46 /* ViewController */,
+			);
+			name = Download;
+			sourceTree = "<group>";
+		};
+		F1BB010721A93A34000A3C46 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F1BB010821A93A68000A3C46 /* MHVideoDownloadService.h */,
+				F1BB010921A93A68000A3C46 /* MHVideoDownloadService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		F1BB010B21A940F9000A3C46 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F1BB011021A94513000A3C46 /* MHDownloadViewController.h */,
+				F1BB011121A94513000A3C46 /* MHDownloadViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		F1BB010C21A94129000A3C46 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F1BB010D21A94151000A3C46 /* MHVideoDownloadCell.h */,
+				F1BB010E21A94151000A3C46 /* MHVideoDownloadCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F1BB011321A9483C000A3C46 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F1BB011421A9486F000A3C46 /* MHConstants.h */,
+				F1BB011521A9486F000A3C46 /* MHConstants.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,12 +356,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F14BE663219B031200768F7F /* MHVideoDownload.m in Sources */,
+				F1BB011221A94513000A3C46 /* MHDownloadViewController.m in Sources */,
+				F1BB010A21A93A68000A3C46 /* MHVideoDownloadService.m in Sources */,
 				F184C9E42199D7E4000F7CF9 /* MHomeViewController.m in Sources */,
 				F184C9E12199D7E4000F7CF9 /* AppDelegate.m in Sources */,
 				F184C9DE2199D7E4000F7CF9 /* main.m in Sources */,
 				F1292F2C21A6A84800E4AB82 /* MHVideoDetailView.m in Sources */,
 				F1B9B42921A5AA9C00DCF065 /* MHTabBarController.m in Sources */,
+				F1BB010F21A94151000A3C46 /* MHVideoDownloadCell.m in Sources */,
 				F14A605B21A2B81D00E505A5 /* MHVideoUrlParse.m in Sources */,
+				F1BB011621A9486F000A3C46 /* MHConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
