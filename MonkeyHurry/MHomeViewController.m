@@ -14,11 +14,8 @@
 #import "MHVideoDetailView.h"
 #import "MHConstants.h"
 
-@interface MHHomeViewController () <MHVideoDownloadDelegate, WKNavigationDelegate>
+@interface MHHomeViewController () <WKNavigationDelegate>
 
-@property (nonatomic, strong) MHVideoDownload *videoDownload;
-//@property (nonatomic, strong) UILabel *progressLabel;
-//@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) MHVideoUrlParse *videoUrlParse;
 @property (nonatomic, strong) UITextField *inputTextField;
 @property (nonatomic, strong) UIButton *parseButton;
@@ -79,10 +76,12 @@
 }
 
 - (void)startDownload {
+    [self.view endEditing:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:MHStartDownloadVideoNoti object:self.videoDetail];
 }
 
 - (void)parseVideoUrl {
+    [self.view endEditing:YES];
     NSString *videoUrl = _inputTextField.text;
     if (videoUrl && videoUrl.length > 0) {
         self.videoUrlParse = [[MHVideoUrlParse alloc] init];
@@ -100,25 +99,6 @@
             }
         }];
     }
-}
-
-#pragma mark - MHVideoDownloadDelegate;
-- (void)videoDownloadProgress:(float)progress {
-    NSString *videoTitle = self.videoDetail.title ? : @"";
-    NSString *value = [NSString stringWithFormat:@"%@:%.2f%%", videoTitle, progress];
-//    self.progressLabel.text = value;
-}
-
-- (void)videoDownloadCompleteWithError:(NSError *)error {
-    if (error) {
-        NSLog(@"下载出现了错误：%@", error);
-    } else {
-        NSLog(@"下载成功");
-    }
-}
-
-- (BOOL)videoDownloadSaveToPhotoAssets {
-    return YES;
 }
 
 @end

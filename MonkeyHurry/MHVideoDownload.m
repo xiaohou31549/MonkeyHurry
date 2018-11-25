@@ -14,19 +14,24 @@
 @property (nonatomic, strong) NSURLSession *downloadSession;
 @property (nonatomic, strong) NSURLSessionDownloadTask *dataTask;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, copy) void(^downloadBlock)(BOOL isSuccess, NSError *error);
+@property (nonatomic, copy) void(^progressBlock)(float progress);
 
 @end
 
 @implementation MHVideoDownload
 
-- (instancetype)initWithVideoUrl:(NSString *)url {
+- (instancetype)initWithVideoUrl:(NSString *)url{
     if (self = [super init]) {
         _url = url;
+        
     }
     return self;
 }
 
-- (void)startDownload {
+- (void)startDownload:(void(^)(BOOL isSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock  {
+    _downloadBlock = completion;
+    _progressBlock = progressBlock;
     NSURL *downloadUrl = [NSURL URLWithString:_url];
     if (downloadUrl) {
         _downloadSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
@@ -43,19 +48,18 @@
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     float percentValue = ((float)totalBytesWritten/totalBytesExpectedToWrite) * 100;
-    if ([self.delegate respondsToSelector:@selector(videoDownloadProgress:)]) {
-        [self.delegate videoDownloadProgress:percentValue];
+    if (self.progressBlock) {
+        self.progressBlock(percentValue);
     }
 }
 
 -(void)URLSession:(nonnull NSURLSession *)session
      downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(nonnull NSURL *)location {
-    BOOL isSaveToPhotoAssets = YES;
-    if ([self.delegate respondsToSelector:@selector(videoDownloadSaveToPhotoAssets)]) {
-        isSaveToPhotoAssets = [self.delegate videoDownloadSaveToPhotoAssets];
+    if (self.downloadBlock) {
+        self.downloadBlock(YES, nil);
     }
-    if (isSaveToPhotoAssets) {
+    if (self.isSaveToPhotoAlbum) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MMdd-HH-mm-ss"];
         
@@ -91,8 +95,8 @@ didFinishDownloadingToURL:(nonnull NSURL *)location {
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    if([self.delegate respondsToSelector:@selector(videoDownloadCompleteWithError:)]) {
-        [self.delegate videoDownloadCompleteWithError:error];
+    if (self.downloadBlock && error) {
+        self.downloadBlock(NO, error);
     }
 }
 

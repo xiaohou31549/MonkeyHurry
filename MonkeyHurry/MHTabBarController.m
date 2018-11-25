@@ -45,7 +45,7 @@
     
     MHDownloadViewController *downloadVC = [[MHDownloadViewController alloc]init];
     downloadVC.tabBarItem.title = @"下载";
-    downloadVC.view.backgroundColor = [UIColor yellowColor];
+    downloadVC.view.backgroundColor = [UIColor whiteColor];
     UITabBarItem *downloadItem = [[UITabBarItem alloc] initWithTitle:@"下载" image:[UIImage imageNamed:@"download_youtube_normal"] selectedImage:[UIImage imageNamed:@"download_youtube_selected"]];
     downloadVC.tabBarItem = downloadItem;
     

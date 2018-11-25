@@ -11,7 +11,7 @@
 #import "MHConstants.h"
 #import "MHVideoDownload.h"
 
-@interface MHDownloadViewController () <MHVideoDownloadDelegate>
+@interface MHDownloadViewController ()
 
 @property (nonatomic, strong) NSMutableArray<MHVideoParseModel *> *downloadingViedos;
 @property (nonatomic, strong) NSMutableArray<MHVideoParseModel *> *downloadedViedeos;
@@ -36,6 +36,8 @@
 - (void)setupTableView {
     [self.tableView registerClass:[MHVideoDownloadCell class] forCellReuseIdentifier:NSStringFromClass([MHVideoDownloadCell class])];
     self.tableView.rowHeight = 60;
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)observerVideoDownloadNoti:(NSNotification *)noti {
@@ -45,10 +47,19 @@
         NSString *videoUrl = model.url;
         if (videoUrl && videoUrl.length > 0) {
             MHVideoDownload *task = [[MHVideoDownload alloc] initWithVideoUrl:videoUrl];
-            task.delegate = self;
-            [task startDownload];
+            task.isSaveToPhotoAlbum = YES;
             [self.downloadTasks addObject:task];
             [self.downloadingViedos addObject:model];
+            [self.tableView reloadData];
+            NSInteger cellRow = self.downloadingViedos.count - 1;
+            __weak typeof(self) weakSelf = self;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellRow inSection:0] ;
+            [task startDownload:^(BOOL isSuccess, NSError *error) {
+                NSLog(@"下载成功：%@", @(isSuccess));
+            } progressBlock:^(float progress) {
+                MHVideoDownloadCell *downloadCell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
+                downloadCell.progressLable.text = [NSString stringWithFormat:@"%.2f%%", progress];
+            }];
         } else {
             NSLog(@"video url 为空");
         }
@@ -78,71 +89,11 @@
     MHVideoParseModel *model  = section == 0 ? self.downloadingViedos[row] : self.downloadedViedeos[row];
     cell.saveButton.hidden = section == 0;
     cell.tag = row;
-    [cell.saveButton addTarget:self action:@selector(saveToPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell.saveButton addTarget:self action:@selector(saveToPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
     [cell configData:model];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@", @(indexPath.row)];
     return cell;
-}
-
-- (void)saveToPhotoAlbum:(UIButton *)sender {
-    
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark - MHVideoDownloadDelegate
-
-- (void)videoDownloadProgress:(float)progress {
-    
-}
-
-- (void)videoDownloadCompleteWithError:(NSError *)error {
-    
-}
-
-- (BOOL)videoDownloadSaveToPhotoAssets {
-    return YES;
 }
 
 @end

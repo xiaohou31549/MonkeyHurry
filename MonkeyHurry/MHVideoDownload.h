@@ -8,21 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MHVideoDownloadDelegate <NSObject>
-
-//进度数值范围：0~100
-- (void)videoDownloadProgress:(float)progress;
-- (void)videoDownloadCompleteWithError:(NSError *)error;
-- (BOOL)videoDownloadSaveToPhotoAssets;
-
-@end
-
 @interface MHVideoDownload : NSObject
 
-@property (nonatomic, weak) id<MHVideoDownloadDelegate> delegate;
+@property (nonatomic, assign) BOOL isSaveToPhotoAlbum;
 
 - (instancetype)initWithVideoUrl:(NSString *)url;
 
-- (void)startDownload;
+- (void)startDownload:(void(^)(BOOL isSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock;
 
 @end
