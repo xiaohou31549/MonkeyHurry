@@ -19,6 +19,7 @@
 @property (nonatomic, strong) MHVideoUrlParse *videoUrlParse;
 @property (nonatomic, strong) UITextField *inputTextField;
 @property (nonatomic, strong) UIButton *parseButton;
+@property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) MHVideoParseModel *videoDetail;
 @property (nonatomic, strong) MHVideoDetailView *videoParseView;
 
@@ -31,6 +32,21 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self setupViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateParseUrl) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)updateParseUrl {
+    NSString *pasteboard= [self getPasteboardText];
+    if (pasteboard && pasteboard.length > 0) {
+        self.inputTextField.text = pasteboard;
+    }
+}
+
+- (NSString *)getPasteboardText {
+    NSString *pasteboard = [UIPasteboard generalPasteboard].string;
+    BOOL isValidUrl = ([pasteboard rangeOfString:@"http"].location != NSNotFound) || ([pasteboard rangeOfString:@"https"].location != NSNotFound);
+    return isValidUrl ? pasteboard : nil;
 }
 
 - (void)setupViews {
@@ -54,6 +70,14 @@
         make.height.mas_equalTo(40);
     }];
     [_parseButton addTarget:self action:@selector(parseVideoUrl) forControlEvents:UIControlEventTouchUpInside];
+    _parseButton.enabled = YES;
+    
+    _loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [_parseButton addSubview:_loadingIndicator];
+    [_loadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_offset(0);
+    }];
+    _loadingIndicator.hidden = YES;
     
     _inputTextField = [UITextField new];
     _inputTextField.backgroundColor = [UIColor grayColor];
@@ -63,6 +87,7 @@
         make.left.top.bottom.mas_offset(0);
         make.right.mas_equalTo(self.parseButton.mas_left).mas_offset(-10);
     }];
+    _inputTextField.text = [self getPasteboardText];
     
     _videoParseView = [MHVideoDetailView new];
     [self.view addSubview:_videoParseView];
@@ -84,9 +109,19 @@
     [self.view endEditing:YES];
     NSString *videoUrl = _inputTextField.text;
     if (videoUrl && videoUrl.length > 0) {
+        self.parseButton.enabled = NO;
+        self.parseButton.backgroundColor = [UIColor darkGrayColor];
+        [self.parseButton setTitle:@"" forState:UIControlStateNormal];
+        self.loadingIndicator.hidden = NO;
+        [self.loadingIndicator startAnimating];
         self.videoUrlParse = [[MHVideoUrlParse alloc] init];
         __weak typeof(self) weakSelf = self;
         [self.videoUrlParse parseWithUrl:videoUrl completion:^(MHVideoParseModel *result, NSError *error) {
+            weakSelf.parseButton.enabled = YES;
+            weakSelf.parseButton.backgroundColor = [UIColor redColor];
+            [weakSelf.parseButton setTitle:@"解析" forState:UIControlStateNormal];
+            weakSelf.loadingIndicator.hidden = YES;
+            [weakSelf.loadingIndicator stopAnimating];
             if (error) {
                 NSLog(@"解析视频url错误");
             } else {

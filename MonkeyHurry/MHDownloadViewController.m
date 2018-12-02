@@ -32,6 +32,11 @@
     _downloadTasks = [NSMutableArray array];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.tabBarItem.badgeValue = nil;
+}
+
 
 - (void)setupTableView {
     [self.tableView registerClass:[MHVideoDownloadCell class] forCellReuseIdentifier:NSStringFromClass([MHVideoDownloadCell class])];
@@ -43,6 +48,8 @@
 - (void)observerVideoDownloadNoti:(NSNotification *)noti {
     id notiObject = noti.object;
     if (notiObject && [notiObject isKindOfClass:[MHVideoParseModel class]]) {
+        NSInteger badgeValue = self.tabBarItem.badgeValue ? self.tabBarItem.badgeValue.integerValue : 0;
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", @(badgeValue + 1)];
         MHVideoParseModel *model = (MHVideoParseModel *)notiObject;
         NSString *videoUrl = model.url;
         if (videoUrl && videoUrl.length > 0) {
