@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, copy) void(^downloadBlock)(BOOL isSuccess, NSError *error);
 @property (nonatomic, copy) void(^progressBlock)(float progress);
+@property (nonatomic, copy) void(^saveBlock)(BOOL isSaveSuccess, NSError *error);
 
 @end
 
@@ -29,9 +30,10 @@
     return self;
 }
 
-- (void)startDownload:(void(^)(BOOL isSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock  {
+- (void)startDownload:(void(^)(BOOL isDownloadSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock saveBlock:(void(^)(BOOL isSaveSuccess, NSError *error))saveBlock  {
     _downloadBlock = completion;
     _progressBlock = progressBlock;
+    _saveBlock = saveBlock;
     NSURL *downloadUrl = [NSURL URLWithString:_url];
     if (downloadUrl) {
         _downloadSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
@@ -82,10 +84,8 @@ didFinishDownloadingToURL:(nonnull NSURL *)location {
                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                 [library writeVideoAtPathToSavedPhotosAlbum:fileUrl completionBlock:^(NSURL *assetURL, NSError *error)
                  {
-                     if (error) {
-                         NSLog(@"保存相册失败:%@", error);
-                     } else {
-                         NSLog(@"保存相册成功");
+                     if (self.saveBlock) {
+                         self.saveBlock(error == nil, error);
                      }
                  }];
             });

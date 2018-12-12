@@ -14,6 +14,6 @@
 
 - (instancetype)initWithVideoUrl:(NSString *)url;
 
-- (void)startDownload:(void(^)(BOOL isSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock;
+- (void)startDownload:(void(^)(BOOL isDownloadSuccess, NSError *error))completion progressBlock:(void(^)(float progress))progressBlock saveBlock:(void(^)(BOOL isSaveSuccess, NSError *error))saveBlock;
 
 @end
